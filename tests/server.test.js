@@ -62,7 +62,7 @@ describe('POST /posts', () => {
 });
 
 describe('GET /posts', () => {
-	it('should get all posts', (done) => {
+	it('should get all posts by logged in user', (done) => {
 		request(app)
 			.get('/posts')
 			.set('Authorization', `Bearer ${SEED_USERS[0].tokens[0].token}`)
@@ -77,7 +77,7 @@ describe('GET /posts', () => {
 describe('GET /posts/:id', () => {
 	const id = SEED_POSTS[0]._id.toHexString();
 
-	it('should get a post', (done) => {
+	it('should get a post by logged in user', (done) => {
 		request(app)
 			.get(`/posts/${id}`)
 			.set('Authorization', `Bearer ${SEED_USERS[0].tokens[0].token}`)
@@ -88,7 +88,7 @@ describe('GET /posts/:id', () => {
 			.end(done);
 	});
 
-	it('should not get a post created by another user', (done) => {
+	it('should not get a post by another user', (done) => {
 		request(app)
 			.get(`/posts/${SEED_POSTS[1]._id.toHexString()}`)
 			.set('Authorization', `Bearer ${SEED_USERS[0].tokens[0].token}`)
@@ -116,7 +116,7 @@ describe('GET /posts/:id', () => {
 describe('DELETE /posts/:id', () => {
 	const id = SEED_POSTS[0]._id.toHexString();
 
-	it('should delete a post', (done) => {
+	it('should delete a post by logged in user', (done) => {
 		request(app)
 			.delete(`/posts/${id}`)
 			.set('Authorization', `Bearer ${SEED_USERS[0].tokens[0].token}`)
@@ -137,7 +137,7 @@ describe('DELETE /posts/:id', () => {
 			});
 	});
 
-	it('should not delete a post created by another user', (done) => {
+	it('should not delete a post by another user', (done) => {
 		request(app)
 			.delete(`/posts/${id}`)
 			.set('Authorization', `Bearer ${SEED_USERS[1].tokens[0].token}`)
@@ -173,7 +173,7 @@ describe('DELETE /posts/:id', () => {
 });
 
 describe('PATCH /posts/:id', () => {
-	it('should update a post', (done) => {
+	it('should update a post by logged in user', (done) => {
 		const id = SEED_POSTS[0]._id.toHexString();
 
 		const update = {
@@ -194,7 +194,7 @@ describe('PATCH /posts/:id', () => {
 			.end(done);
 	});
 
-	it('should not update a post created by another user', (done) => {
+	it('should not update a post by another user', (done) => {
 		const id = SEED_POSTS[0]._id.toHexString();
 
 		const update = {
@@ -210,7 +210,7 @@ describe('PATCH /posts/:id', () => {
 			.end(done);
 	});
 
-	it('should clear published_at when post is not published', (done) => {
+	it('should clear published_at when post is un-published', (done) => {
 		const id = SEED_POSTS[1]._id.toHexString();
 
 		const update = {
@@ -312,7 +312,7 @@ describe('POST /users', () => {
 			.end(done);
 	});
 
-	it('should not create user if email in use', (done) => {
+	it('should not create user if email taken', (done) => {
 		request(app)
 			.post('/users')
 			.send(SEED_USERS[1])
@@ -322,7 +322,7 @@ describe('POST /users', () => {
 });
 
 describe('POST users/login', () => {
-	it('should log in a user and return an auth token', (done) => {
+	it('should log in user and return auth token', (done) => {
 		request(app)
 			.post('/users/login')
 			.send({
@@ -349,7 +349,7 @@ describe('POST users/login', () => {
 			});
 	});
 
-	it('should reject invalid login', (done) => {
+	it('should reject login attempt with invalid credentials', (done) => {
 		request(app)
 			.post('/users/login')
 			.send({
