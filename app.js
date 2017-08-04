@@ -24,7 +24,7 @@ app.post('/posts', authenticate, async (req, res) => {
 		const post = await newPost.save();
 		res.send({post});
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
@@ -33,14 +33,14 @@ app.get('/posts', authenticate, async (req, res) => {
 		const posts = await Post.find({_author: req.user._id});
 		res.send({posts});
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
 app.get('/posts/:id', authenticate, async (req, res) => {
 	const { id } = req.params;
 
-	if (!ObjectID.isValid(id)) return res.status(404).send();
+	if (!ObjectID.isValid(id)) return res.sendStatus(404);
 
 	try {
 		const post = await Post.findOne({
@@ -48,18 +48,18 @@ app.get('/posts/:id', authenticate, async (req, res) => {
 			_id: id,
 		});
 
-		if (!post) return res.status(404).send();
+		if (!post) return res.sendStatus(404);
 
 		res.send({post});
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
 app.delete('/posts/:id', authenticate, async (req, res) => {
 	const { id } = req.params;
 
-	if (!ObjectID.isValid(id)) return res.status(404).send();
+	if (!ObjectID.isValid(id)) return res.sendStatus(404);
 
 	try {
 		const post = await Post.findOneAndRemove({
@@ -67,18 +67,18 @@ app.delete('/posts/:id', authenticate, async (req, res) => {
 			_id: id,
 		});
 
-		if (!post) return res.status(404).send();
+		if (!post) return res.sendStatus(404);
 
 		res.send({post});
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
 app.patch('/posts/:id', authenticate, async (req, res) => {
 	const { id } = req.params;
 
-	if (!ObjectID.isValid(id)) return res.status(404).send();
+	if (!ObjectID.isValid(id)) return res.sendStatus(404);
 
 	const body = _.pick(req.body, ['text', 'published']);
 
@@ -95,11 +95,11 @@ app.patch('/posts/:id', authenticate, async (req, res) => {
 			_id: id,
 		}, {$set: body}, {new: true});
 
-		if (!post) return res.status(404).send();
+		if (!post) return res.sendStatus(404);
 
 		res.send({post});
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
@@ -112,7 +112,7 @@ app.post('/users', async (req, res) => {
 		const token = await user.generateAuthToken();
 		res.header('Authorization', `Bearer ${token}`).send(user);
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
@@ -128,16 +128,16 @@ app.post('/users/login', async (req, res) => {
 		const token = await user.generateAuthToken();
 		res.header('Authorization', `Bearer ${token}`).send(user);
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
 app.delete('/users/me/token', authenticate, async (req, res) => {
 	try {
 		await req.user.removeToken(req.token);
-		res.status(200).send();
+		res.sendStatus(200);
 	} catch (err) {
-		res.status(400).send();
+		res.sendStatus(400);
 	}
 });
 
