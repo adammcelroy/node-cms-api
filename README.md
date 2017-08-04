@@ -12,7 +12,7 @@ This repository contains the backend of the project: a RESTful API served by Exp
 * MongoDB with Mongoose
 * Exposes a RESTful API
 * Secure authentication with JWT and Bcrypt
-* ES6 and ES7 features used throughout
+* ES6 and ES7 features such as async/await used throughout
 * Fully testable
 * Adaptable to different environments
 * Integrated with Heroku for seamless deployments
