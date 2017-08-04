@@ -5,6 +5,7 @@ const { authenticate } = require('./../middleware/authenticate');
 const { Post } = require('./../models/post');
 
 module.exports = (app) => {
+	// Create a new post
 	app.post('/posts', authenticate, async (req, res) => {
 		const newPost = new Post({
 			_author: req.user._id,
@@ -19,6 +20,7 @@ module.exports = (app) => {
 		}
 	});
 
+	// Get all posts by the logged in user
 	app.get('/posts', authenticate, async (req, res) => {
 		try {
 			const posts = await Post.find({_author: req.user._id});
@@ -28,6 +30,7 @@ module.exports = (app) => {
 		}
 	});
 
+	// Get a post by the logged in user
 	app.get('/posts/:id', authenticate, async (req, res) => {
 		const { id } = req.params;
 
@@ -47,6 +50,7 @@ module.exports = (app) => {
 		}
 	});
 
+	// Delete a post by the logged in user
 	app.delete('/posts/:id', authenticate, async (req, res) => {
 		const { id } = req.params;
 
@@ -66,6 +70,7 @@ module.exports = (app) => {
 		}
 	});
 
+	// Update a post by the logged in user
 	app.patch('/posts/:id', authenticate, async (req, res) => {
 		const { id } = req.params;
 
@@ -73,6 +78,9 @@ module.exports = (app) => {
 
 		const body = _.pick(req.body, ['text', 'published']);
 
+		// If we are publishing a post, we want to create a timestamp of
+		// when it was published, otherwise if we're un-publishing then
+		// we should remove the timestamp.
 		if (_.isBoolean(body.published) && body.published) {
 			body.published_at = new Date().getTime();
 		} else {

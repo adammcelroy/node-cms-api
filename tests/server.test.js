@@ -9,7 +9,7 @@ const { User } = require('./../models/user');
 
 const {SEED_POSTS, SEED_USERS, seedPosts, seedUsers} = require('./seed/seed');
 
-// Create the test database and seed with test data
+// Implicitly create the test database and seed with data
 beforeEach(seedUsers);
 beforeEach(seedPosts);
 

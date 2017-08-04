@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Use native promises
+// Configure Mongoose to use native promises
 mongoose.promise = global.Promise;
 
 mongoose.connect(process.env.MONGODB_URI);

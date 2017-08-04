@@ -41,6 +41,7 @@ userSchema.methods.toJSON = function () {
 	return _.pick(userObject, ['_id', 'email']);
 };
 
+// Create a new auth token and save it to the user document
 userSchema.methods.generateAuthToken = async function () {
 	const user = this;
 	const access = 'auth';
@@ -52,6 +53,7 @@ userSchema.methods.generateAuthToken = async function () {
 	return token;
 };
 
+// Remove an auth token from the user documents
 userSchema.methods.removeToken = function (token) {
 	const user = this;
 
@@ -62,6 +64,7 @@ userSchema.methods.removeToken = function (token) {
 	});
 };
 
+// Find a user that has a specific auth token
 userSchema.statics.findByToken = function (token) {
 	const User = this;
 	let decoded;
@@ -79,6 +82,7 @@ userSchema.statics.findByToken = function (token) {
 	});
 };
 
+// Find a user by email and password combo
 userSchema.statics.findByCredentials = async function (email, password) {
 	const User = this;
 
@@ -96,6 +100,9 @@ userSchema.statics.findByCredentials = async function (email, password) {
 	});
 };
 
+// Ensure that password hashing happens automatically rather than
+// needing to remember to do it manually each time. Also prevents
+// against accidentally hashing an already hashed password.
 userSchema.pre('save', function (next) {
 	const user = this;
 
