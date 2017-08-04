@@ -1,0 +1,12 @@
+{
+  "development": {
+    "PORT": 3000,
+    "MONGODB_URI": "mongodb://localhost:27017/Node-CMS-API",
+    "JWT_SECRET": "hGiijKC2K3WApyBmx8TZDnTh"
+  },
+  "test": {
+    "PORT": 3000,
+    "MONGODB_URI": "mongodb://localhost:27017/Node-CMS-API-Test",
+    "JWT_SECRET": "nQhgKWid6ekBzMo4zcBwEPQM"
+  }
+}
