@@ -3,7 +3,7 @@ const request = require('supertest');
 const { ObjectID } = require('mongodb');
 
 const { app } = require('./../app');
-const { mongoose } = require('./../database/mongoose');
+const { mongoose } = require('./../database/database');
 const { Post } = require('./../models/post');
 const { User } = require('./../models/user');
 
