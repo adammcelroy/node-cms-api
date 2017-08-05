@@ -1,9 +1,7 @@
 # Node CMS API
 
-## Mission
-To create a barebones, lightweight, testable CMS (Content Management System) using the MERN (MongoDB, Express, React, NodeJS) stack from scratch.
-
-The aim is not to create a fully-featured CMS —the feature set is in fact very limited— but rather to illustrate how the MERN stack allows us to create powerful features with little boilerplate or overheads.
+## Goal
+To create a barebones, lightweight, testable CMS using the MERN stack from scratch.
 
 This repository contains the backend of the project: a RESTful API served by Express running on NodeJS that interacts with a MongoDB database. Excluding tests, the backend is just a couple hundred code-lines.
 
@@ -42,7 +40,8 @@ npm run watch
 
 The server will start on port 3000. To confirm it's working, head to your browser and navigate to http://localhost:3000/posts. If you receive some JSON back containing an empty `posts` array then you're all set up!
 
-This repository contains a [Postman](https://www.getpostman.com/) collection that you can import to interact with the API. Simply create a new environment with a variable 'url' set to your local URL or the demo URL and you can get start using the imported collection.
+## Postman Demo
+This repository contains a [Postman](https://www.getpostman.com/) collection that you can import to interact with the API. Simply create a new environment with a variable 'url' set to your local URL or the demo URL [https://node-cms-api.herokuapp.com/](https://node-cms-api.herokuapp.com/) and you can get start using the imported collection.
 
 ## Testing
 
